@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row">
+    <div class="col col-12">
+      <div class="card home-card">
+        <div class="card-header" style="text-align: center">
+          <h4>Upload Image</h4>
+        </div>
+        <div class="card-body">
+          <label>
+            <input
+              type="file"
+              class="text-nowrap text-truncate"
+              (change)="selectFile($event)"
+            />
+          </label>
+          <button
+            class="btn btn-success btn-sm"
+            [disabled]="!selectedFiles"
+            (click)="upload()"
+          >
+            Upload
+          </button>
+          <div *ngIf="currentFileUpload" class="progress mt-2">
+            <div
+              class="progress-bar progress-bar-success"
+              role="progressbar"
+              attr.aria-valuenow="{{ percentage }}"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              [ngStyle]="{ width: percentage + '%' }"
+            >
+              {{ percentage }}%
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card home-card">
+        <div class="card-header" style="text-align: center">
+          <h4>Results</h4>
+        </div>
+        
+        <div class="card-body" *ngIf="latestFileUpload != null">
+          <div>
+            <p style="font-size: 20px;"><b>Diabetic Retinopathy Class : {{latestFileUpload.prediction}}</b></p>
+          </div>
+          <div class="row">
+            <div class="col col-6">
+              <p><b>Original Image : </b></p>
+              <img style="height: 300px; width:300px" src="{{latestFileUpload.url}}" class="rounded float-left">
+            </div>
+            <div *ngIf="latestFileUpload.processedImageUrl" class="col col-6">
+              <p><b>Processed Image : </b></p>
+              <img style="height: 300px; width:300px" src="{{latestFileUpload.processedImageUrl}}" class="rounded float-left">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
